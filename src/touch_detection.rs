@@ -28,7 +28,7 @@ pub fn touch_detection(mut touch_evr: EventReader<TouchInput>) {
             }
         }
 
-        let angle = Quat::from_rotation_arc(Vec3::Y, (start - end).normalize());
+        let angle = start.angle_between(end);
         println!("final angle is {}", angle);
     }
 }
