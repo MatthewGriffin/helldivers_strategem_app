@@ -21,7 +21,7 @@ pub fn touch_detection(
                 println!("Touch {} ended at: {:?}", ev.id, ev.position);
                 current_touch.touch_end = ev.position;
 
-                let diff = current_touch.touch_start.dot(current_touch.touch_end);
+                let diff = current_touch.touch_start - current_touch.touch_end;
                 println!("diff is {}", diff);
             }
             TouchPhase::Canceled => {
