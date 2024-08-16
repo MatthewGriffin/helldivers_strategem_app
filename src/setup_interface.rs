@@ -1,35 +1,14 @@
 use bevy::{
     asset::AssetServer,
-    color::{Alpha, Color},
+    color::Color,
     math::Vec2,
     prelude::{default, BuildChildren, Camera2dBundle, Commands, NodeBundle, Res, Transform},
-    sprite::{
-        Anchor, BorderRect, ImageScaleMode, SliceScaleMode, Sprite, SpriteBundle, TextureSlicer,
-    },
-    ui::{BackgroundColor, Display, GridTrack, Style, Val},
+    sprite::{Anchor, Sprite},
+    ui::{BackgroundColor, Display, GridTrack, Style, UiImage, Val},
 };
 
 pub fn setup_interface(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
-
-    let mut super_earth_command = commands.spawn(SpriteBundle {
-        sprite: Sprite {
-            anchor: Anchor::Center,
-            custom_size: Some(Vec2::new(1000.0, 1000.0)),
-
-            color: Color::linear_rgba(255.0, 255.0, 255.0, 0.01),
-            ..default()
-        },
-        transform: Transform::from_xyz(0.0, 0.0, 0.0),
-        texture: asset_server.load("super_earth.png"),
-        ..default()
-    });
-
-    super_earth_command.insert(ImageScaleMode::Sliced(TextureSlicer {
-        border: BorderRect::square(200.0),
-        center_scale_mode: SliceScaleMode::Stretch,
-        ..default()
-    }));
 
     commands
         .spawn(NodeBundle {
@@ -69,14 +48,29 @@ pub fn setup_interface(mut commands: Commands, asset_server: Res<AssetServer>) {
                 ..default()
             });
 
-            parent.spawn(NodeBundle {
-                style: Style {
-                    width: Val::Percent(100.0),
-                    height: Val::Percent(100.0),
+            parent
+                .spawn(NodeBundle {
+                    style: Style {
+                        left: Val::Percent(25.0),
+                        width: Val::Percent(50.0),
+                        height: Val::Percent(100.0),
+                        ..default()
+                    },
                     ..default()
-                },
-                ..default()
-            });
+                })
+                .with_children(|parent| {
+                    parent.spawn((
+                        NodeBundle {
+                            style: Style {
+                                height: Val::Percent(100.0),
+                                width: Val::Percent(100.0),
+                                ..default()
+                            },
+                            ..default()
+                        },
+                        UiImage::new(asset_server.load("super_earth.png")),
+                    ));
+                });
 
             parent.spawn(NodeBundle {
                 style: Style {
