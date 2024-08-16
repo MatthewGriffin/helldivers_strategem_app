@@ -1,11 +1,26 @@
 use bevy::{
-    color::Color,
-    prelude::{default, BuildChildren, Camera2dBundle, Commands, NodeBundle},
+    asset::AssetServer,
+    color::{Alpha, Color},
+    math::Vec2,
+    prelude::{default, BuildChildren, Camera2dBundle, Commands, NodeBundle, Res, Transform},
+    sprite::{Anchor, Sprite, SpriteBundle},
     ui::{BackgroundColor, Display, GridTrack, Style, Val},
 };
 
-pub fn setup_interface(mut commands: Commands) {
+pub fn setup_interface(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
+
+    commands.spawn(SpriteBundle {
+        sprite: Sprite {
+            anchor: Anchor::Center,
+            custom_size: Some(Vec2::new(1000.0, 1000.0)),
+            color: Color::linear_rgba(255.0, 255.0, 255.0, 0.01),
+            ..default()
+        },
+        transform: Transform::from_xyz(0.0, 0.0, 0.0),
+        texture: asset_server.load("super_earth.png"),
+        ..default()
+    });
 
     commands
         .spawn(NodeBundle {
