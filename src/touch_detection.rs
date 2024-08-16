@@ -1,10 +1,11 @@
-use bevy::prelude::{EventReader, ResMut, TouchInput};
+use bevy::prelude::{EventReader, EventWriter, ResMut, TouchInput};
 
-use crate::touch_resource::TouchResource;
+use crate::{process_touch_event::ProcessTouchEvent, touch_resource::TouchResource};
 
 pub fn touch_detection(
     mut touch_evr: EventReader<TouchInput>,
     mut current_touch: ResMut<TouchResource>,
+    mut process_touch_event_sender: EventWriter<ProcessTouchEvent>,
 ) {
     use bevy::input::touch::TouchPhase;
     for ev in touch_evr.read() {
@@ -23,6 +24,9 @@ pub fn touch_detection(
 
                 let diff = current_touch.touch_start - current_touch.touch_end;
                 println!("diff is {}", diff);
+                process_touch_event_sender.send(ProcessTouchEvent {
+                    start_end_diff: diff,
+                });
             }
             TouchPhase::Canceled => {
                 println!("Touch {} cancelled at: {:?}", ev.id, ev.position);
