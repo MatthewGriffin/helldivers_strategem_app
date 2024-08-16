@@ -16,9 +16,9 @@ pub fn setup_interface(mut commands: Commands) {
                 grid_template_columns: vec![GridTrack::flex(1.0)],
                 grid_template_rows: vec![
                     GridTrack::flex(0.1),
-                    GridTrack::flex(0.1),
-                    GridTrack::flex(0.6),
-                    GridTrack::flex(0.1),
+                    GridTrack::flex(0.05),
+                    GridTrack::flex(0.7),
+                    GridTrack::flex(0.05),
                     GridTrack::flex(0.1),
                 ],
                 ..default()
