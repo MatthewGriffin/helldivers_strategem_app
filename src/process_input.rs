@@ -13,13 +13,13 @@ pub fn process_input(mut input_to_process: EventReader<ProcessTouchEvent>) {
         else if (diff.x <= 10.0 || diff.x >= -10.0) && diff.y <= -100.0 {
             println!("Detected Down Swipe");
         }
-        //if swipe left
-        else if (diff.y <= 10.0 || diff.y >= -10.0) && diff.x <= -100.0 {
-            println!("Detected Left Swipe");
-        }
         //if swipe right
-        else if (diff.y <= 10.0 || diff.y >= -10.0) && diff.x >= 100.0 {
+        else if (diff.y <= 10.0 || diff.y >= -10.0) && diff.x <= -100.0 {
             println!("Detected Right Swipe");
+        }
+        //if swipe left
+        else if (diff.y <= 10.0 || diff.y >= -10.0) && diff.x >= 100.0 {
+            println!("Detected Left Swipe");
         }
     }
 }
