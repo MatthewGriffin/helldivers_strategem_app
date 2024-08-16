@@ -1,9 +1,7 @@
 use bevy::{
     asset::AssetServer,
     color::Color,
-    math::Vec2,
-    prelude::{default, BuildChildren, Camera2dBundle, Commands, NodeBundle, Res, Transform},
-    sprite::{Anchor, Sprite},
+    prelude::{default, BuildChildren, Camera2dBundle, Commands, NodeBundle, Res},
     ui::{BackgroundColor, Display, GridTrack, Style, UiImage, Val},
 };
 
@@ -68,7 +66,11 @@ pub fn setup_interface(mut commands: Commands, asset_server: Res<AssetServer>) {
                             },
                             ..default()
                         },
-                        UiImage::new(asset_server.load("super_earth.png")),
+                        UiImage {
+                            texture: asset_server.load("super_earth.png"),
+                            color: Color::linear_rgba(255.0, 255.0, 255.0, 0.01),
+                            ..default()
+                        },
                     ));
                 });
 
